@@ -1,0 +1,44 @@
+Logical Volume Manager (LVM) Configuration
+------------------------------------------
+
+Requirement:  Two additional hard disk (20 GB each) 
+
+# yum install lvm2 -y
+
+# vgs                                 --> To Check
+
+# lvs
+
+# pvcreate /dev/sdb /dev/sdc                                   --> for creation of Physical Volume
+
+# vgcreate HPCSA /dev/sdb /dev/sdc					   --> for creation of Virtual Group
+
+# lvcreate -n hpcsa_lab --size 1G HPCSA
+
+# vgs
+
+# fdisk /dev/mapper/HPCSA-hpcsa_lab                          --> for creating and manipulating disk partition table
+
+	>>	Enter 'n' and create new partition 'p' or press Enter several times  | or you can skip this step also 
+		Enter 'm' for help
+		Enter 'w'  (write table to disk and exit)
+
+# mkfs.ext4 /dev/mapper/HPCSA-hpcsa_lab
+
+# mkdir lab     or mkdir /mnt/lvm               ( Note : You can use /mnt/lvm in place of lab keyword in below commands if directory made was /mnt/lvm )
+
+# mount /dev/mapper/HPCSA-hpcsa_lab lab
+
+# df -Th
+
+# lvextend -L +2G /dev/mapper/HPCSA-hpcsa_lab                --> for extension of Logical Volume
+
+# resize2fs /dev/mapper/HPCSA-hpcsa_lab
+
+# df -Th
+
+# lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab
+
+------------------------------------------------------------------
+
+# lvconvert --merge /dev/mapper/HPCSA-hpcsa_lab

@@ -9,11 +9,11 @@ Requirement:  Two additional hard disk (20 GB each)
 
 # lvs
 
-# pvcreate /dev/sdb /dev/sdc                                   --> for creation of Physical Volume
+# pvcreate /dev/sdb /dev/sdc                                                    --> for creation of Physical Volume
 
-# vgcreate HPCSA /dev/sdb /dev/sdc					   --> for creation of Virtual Group
+# vgcreate HPCSA /dev/sdb /dev/sdc					        --> for creation of Virtual Group
 
-# lvcreate -n hpcsa_lab --size 1G HPCSA
+# lvcreate -n hpcsa_lab --size 1G HPCSA						--> for creation of Logical volume 	
 
 # vgs
 
